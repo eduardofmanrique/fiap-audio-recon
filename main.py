@@ -52,7 +52,7 @@ app.secret_key = os.urandom(24)
 
 # Set the session lifetime to 15 minutes (900 seconds)
 app.config['SESSION_PERMANENT'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 
 def text_to_speech_bytes(text):
     speech_config = speechsdk.SpeechConfig(subscription=session.get('AZURE_SPEECH_KEY',None), region=session.get('AZURE_REGION',None))
