@@ -6,3 +6,4 @@ num2words==0.5.14
 requests==2.32.3
 SpeechRecognition==3.10.0
 gunicorn==21.2.0
+eventlet==0.33.3

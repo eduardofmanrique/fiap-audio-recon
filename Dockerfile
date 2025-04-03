@@ -1,21 +1,24 @@
-# Use a Python 3.11 base image
-FROM python:3.11
+FROM python:3.9
 
-# Install dependencies (ffmpeg + espeak-ng)
-RUN apt-get update && apt-get install -y espeak-ng ffmpeg && rm -rf /var/lib/apt/lists/*
+# Instala pacotes do sistema necessários
+RUN apt-get update && apt-get install -y \
+    espeak \
+    ffmpeg \
+    libespeak1 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
+# Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copy project files
-COPY . .
+# Copia os arquivos necessários para o contêiner
+COPY . /app
 
-# Install Python dependencies
+# Instala as dependências do Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port (needed for Render)
-EXPOSE 8000
+# Exposição da porta do Flask
+EXPOSE 5000
 
-# Start the app with Gunicorn (optimized for WebSockets)
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:8000", "main:app"]
+# Comando para iniciar a aplicação
+CMD ["gunicorn", "-k", "eventlet", "-w", "1", "-b", "0.0.0.0:5000", "main:app"]
 
