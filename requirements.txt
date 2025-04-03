@@ -5,3 +5,4 @@ RapidFuzz==3.12.2
 num2words==0.5.14
 requests==2.32.3
 SpeechRecognition==3.10.0
+gunicorn==21.2.0
