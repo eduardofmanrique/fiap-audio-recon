@@ -18,9 +18,7 @@
             height: 100vh;
             margin: 0;
             flex-direction: column;
-
         }
-
 
         /* Estilo para a div que ocupa toda a página */
         #start-attendance {
@@ -57,7 +55,6 @@
             border-radius: 8px; /* Bordas arredondadas */
             width: 25%; /* Ajuste a largura da caixa conforme necessário */
             text-align: center; /* Ajuste o alinhamento do texto, se necessário */
-
         }
 
         #pulse-indicator {
@@ -66,7 +63,6 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: pulse-animation 2s infinite;
         }
 
         #pulse-indicator img {
@@ -244,6 +240,38 @@
 
                         record(trigger_record);
                     };
+
+                    // Create an analyser node to get audio data
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const analyser = audioContext.createAnalyser();
+                    const source = audioContext.createMediaElementSource(audio);
+                    source.connect(analyser);
+                    analyser.connect(audioContext.destination);
+
+                    // Set up buffer for frequency data
+                    const bufferLength = analyser.frequencyBinCount;
+                    const dataArray = new Uint8Array(bufferLength);
+
+                    // Function to update animation based on audio volume
+                    function updateAnimation() {
+                        analyser.getByteFrequencyData(dataArray);
+
+                        // Calculate average volume (loudness) of audio
+                        let sum = 0;
+                        for (let i = 0; i < bufferLength; i++) {
+                            sum += dataArray[i];
+                        }
+                        const averageVolume = sum / bufferLength;
+
+                        // Scale the pulse animation based on the volume
+                        const scale = 1 + (averageVolume / 256); // Scale factor, adjust this to your needs
+                        pulseIndicator.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+                        // Loop the animation
+                        requestAnimationFrame(updateAnimation);
+                    }
+
+                    updateAnimation();
                 }
             })
             .catch(error => console.error("Erro ao processar o áudio:", error));
