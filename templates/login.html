@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Quantum Finance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo geral do body */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Usa toda a altura da tela */
+            margin: 0; /* Remove a margem padrão */
+        }
+
+        /* Estilo do container de login */
+        #login-container {
+            background-color: #01134d;
+            color: white;
+            width: 300px;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo do título */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo dos campos de input */
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+            box-sizing: border-box; /* Garantir que o padding não afete o tamanho total */
+            font-size: 11px;
+        }
+
+        /* Efeito de focus nos inputs */
+        .input-field:focus {
+            outline: none;
+            border-color: #1e40af;
+            font-size: 11px;
+        }
+
+        /* Estilo do botão de login */
+        .login-btn {
+            background-color: #1e40af;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+            font-size: 11px;
+        }
+
+        /* Efeito hover no botão */
+        .login-btn:hover {
+            background-color: #01134d; /* Cor de fundo ao passar o mouse */
+        }
+        p {
+            font-size: 11px;
+
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Div de login -->
+    <div id="login-container">
+        <img src="{{ url_for('static', filename='images/white_logo.png') }}" alt="white_logo" width="100px">
+        <h1>Atendimento Digital</h1>
+        <p>
+            Essa é a entrega para a avaliação da disciplina Audio Recognition, ministrada pelo professor Alexandre Gastaldi do curso de MBA Data Science e Artificial Intelligence da FIAP.<br><br>
+            Turma: 7DTSR <br>
+            Eduardo Manrique - 354953 <br>
+            Enzo Bernardi - 354915 <br>
+            Fabian Bram - 354914
+        </p>
+        <h3>Credenciais Azure</h3>
+        <p>
+            Preencha as credenciais da Azure do serviço Speech Recognition.
+        </p>
+
+        <!-- Formulário de login -->
+        <form id="login-form" action="/login" method="POST">
+            <input type="text" class="input-field" name="AZURE_REGION" placeholder="AZURE_REGION" required>
+            <input type="password" class="input-field" name="AZURE_SPEECH_KEY" placeholder="AZURE_SPEECH_KEY" required>
+            <button type="submit" class="login-btn">Entrar</button>
+        </form>
+    </div>
+
+</body>
+</html>

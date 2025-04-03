@@ -1,9 +1,8 @@
 Flask==3.1.0
 Flask-SocketIO==5.5.1
-pyttsx3==2.98
 RapidFuzz==3.12.2
 num2words==0.5.14
 requests==2.32.3
-SpeechRecognition==3.10.0
+azure-cognitiveservices-speech==1.43.0
 gunicorn==21.2.0
 eventlet==0.33.3

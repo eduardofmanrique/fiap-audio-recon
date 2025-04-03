@@ -1,24 +1,17 @@
-FROM python:3.9
+# Usa uma imagem oficial do Python como base
+FROM python:3.10
 
-# Instala pacotes do sistema necessários
-RUN apt-get update && apt-get install -y \
-    espeak \
-    ffmpeg \
-    libespeak1 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Define o diretório de trabalho dentro do contêiner
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia os arquivos necessários para o contêiner
-COPY . /app
+# Copia os arquivos do projeto para o container
+COPY . .
 
-# Instala as dependências do Python
+# Instala as dependências do projeto
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Exposição da porta do Flask
+# Expõe a porta usada pelo Flask
 EXPOSE 5000
 
-# Comando para iniciar a aplicação
-CMD ["gunicorn", "-k", "eventlet", "-w", "1", "-b", "0.0.0.0:5000", "main:app"]
-
+# Comando para rodar o servidor com Gunicorn
+CMD ["gunicorn", "--worker-class", "eventlet", "-w", "1", "-b", "0.0.0.0:5000", "main:app"]
