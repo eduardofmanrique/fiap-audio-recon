@@ -17,4 +17,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
 
 # Start the app with Gunicorn (optimized for WebSockets)
-CMD ["gunicorn", "-w", "1", "-k", "gevent", "-b", "0.0.0.0:8000", "main:app"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:8000", "main:app"]
+
